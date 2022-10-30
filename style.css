@@ -3,8 +3,13 @@ body {
   position: relative;
 }
 
-textarea {
-  resize: none;
+input[type="text"] {
+  border-color: #b8b8b8;
+}
+
+input[type="text"]:focus {
+  border-color: #b8b8b8;
+  box-shadow: none !important;
 }
 
 footer {
@@ -14,6 +19,11 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 #chat {

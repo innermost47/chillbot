@@ -94,7 +94,11 @@ const dialog = () => {
   start.addEventListener("click", () => {
     startDisplay();
   });
-  submit.addEventListener("click", () => {
+  submit.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (input.value == "") {
+      return;
+    }
     let myAnswer = answers.appendChild(document.createElement("p"));
     myAnswer.classList.add("myAnswer");
     myAnswer.innerHTML = input.value;

@@ -1,0 +1,153 @@
+body {
+  font-family: "Montserrat" !important;
+  position: relative;
+}
+
+textarea {
+  resize: none;
+}
+
+footer {
+  background-color: #181818;
+  color: white;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+#chat {
+  height: 100vh;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.robotLine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.imageBackground {
+  background-color: white;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.icon {
+  width: 35px;
+}
+
+.form-control {
+  border-radius: 0.25rem 0 0 0.25rem !important;
+}
+
+.btn-primary {
+  border-radius: 0 0.25rem 0.25rem 0 !important;
+}
+
+#main {
+  height: 100vh;
+}
+
+#messagesWindow {
+  height: 77vh;
+  overflow-y: scroll;
+  margin: auto;
+  padding: 40px 20px 0 20px;
+}
+
+.messageInput {
+  padding: 0px 20px 0 20px;
+}
+
+#messagesWindow::-webkit-scrollbar {
+  display: none;
+}
+
+#answers {
+  flex-direction: column;
+}
+
+.myAnswer {
+  background-color: #ffaa00;
+  color: white;
+  border-radius: 15px;
+  padding: 15px;
+  max-width: 80%;
+  align-self: flex-end;
+  margin-right: 20px;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.myAnswer::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-left-color: #ffaa00;
+  border-right: 0;
+  border-bottom: 0;
+  margin-top: -10px;
+  margin-right: -20px;
+}
+
+.robotAnswer {
+  background-color: #99b8fe;
+  color: white;
+  border-radius: 15px;
+  padding: 15px;
+  max-width: 80%;
+  margin-left: 25px;
+  align-self: flex-start;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.robotAnswer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-right-color: #99b8fe;
+  border-left: 0;
+  border-bottom: 0;
+  margin-top: -10px;
+  margin-left: -20px;
+}
+
+.robotAnswerClass {
+  margin-bottom: 20px;
+}
+
+#start:hover {
+  cursor: pointer;
+}
+
+.page {
+  height: calc(100vh - 36px);
+}
+
+@media screen and (min-width: 768px) {
+  .myAnswer {
+    max-width: 40%;
+  }
+  .robotAnswer {
+    max-width: 40%;
+  }
+  #messagesWindow {
+    padding: 40px 40px 0 40px;
+  }
+
+  .messageInput {
+    padding: 0px 40px 0 40px;
+  }
+}

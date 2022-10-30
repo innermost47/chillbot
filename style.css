@@ -1,6 +1,7 @@
 body {
   font-family: "Montserrat" !important;
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 input[type="text"] {
@@ -12,12 +13,14 @@ input[type="text"]:focus {
   box-shadow: none !important;
 }
 
+.page {
+  flex-grow: 1;
+}
+
 footer {
   background-color: #181818;
   color: white;
   text-align: center;
-  position: absolute;
-  bottom: 0;
   width: 100%;
 }
 

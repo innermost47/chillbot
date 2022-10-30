@@ -31,6 +31,7 @@ footer {
 
 #chat {
   height: 100vh;
+  width: 100%;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -56,7 +57,7 @@ footer {
   border-radius: 0.25rem 0 0 0.25rem !important;
 }
 
-.btn-primary {
+.btn-form {
   border-radius: 0 0.25rem 0.25rem 0 !important;
 }
 

@@ -9,6 +9,7 @@ const input = document.getElementById("answer");
 const answers = document.getElementById("answers");
 const messagesWindow = document.getElementById("messagesWindow");
 const chat = document.getElementById("chat");
+const end = document.getElementById("end");
 const sendIcon = `<svg
 xmlns="http://www.w3.org/2000/svg"
 width="16"
@@ -66,6 +67,7 @@ const init = () => {
   answers.style.display = "none";
   questionIndex = 0;
   chat.style.display = "none";
+  end.style.display = "none";
   localStorage.clear();
 };
 
@@ -133,7 +135,11 @@ const dialog = () => {
         robotAnswer.scrollIntoView({ behavior: "smooth" });
         if (questionIndex === questionsLength - 1) {
           stop.style.display = "none";
-          submit.innerHTML = "Fin";
+          submit.style.display = "none";
+          input.style.display = "none";
+          setTimeout(() => {
+            end.style.display = "block";
+          }, 1000);
         }
       }, 1500);
     } else {

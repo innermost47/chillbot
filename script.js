@@ -10,6 +10,8 @@ const answers = document.getElementById("answers");
 const messagesWindow = document.getElementById("messagesWindow");
 const chat = document.getElementById("chat");
 const end = document.getElementById("end");
+const chillBot = document.getElementById("chillBot");
+const startContainer = document.getElementById("startContainer");
 const sendIcon = `<svg
 xmlns="http://www.w3.org/2000/svg"
 width="16"
@@ -43,19 +45,20 @@ askQuestion = (antagoniste, questionIndex) => {
       " dans cette situation ?",
     "En effet, c'est une bonne piste... Dis moi, en quoi " +
       antagoniste +
-      " est différent de toi ?",
+      " est différent.e de toi ?",
     "Ok. Et quels sont vos points communs ?",
     "D'accord... Comment cela serait pour toi de te sentir comme " +
       antagoniste +
       " dans cette situation ?",
     "J'imagine oui... Comment est ce que tu te sens ici et maintenant ?",
-    "Je comprends... Je te félicite pour ton travail sur ta colère. ce n'est pas toujours aisé de se remettre en question lorsque nous sommes en colère, alors je te félicite pour cet effort. Bravo ! Et à bientôt !",
+    "Je comprends... Je te félicite pour ton travail sur ta colère, ce n'est pas toujours aisé de se remettre en question lorsque nous sommes en colère, alors je te félicite pour cet effort. Bravo ! Et à bientôt !",
   ];
   questionsLength = questions.length;
   return questions[questionIndex];
 };
 
 const init = () => {
+  startContainer.style.display = "flex";
   main.style.backgroundColor = "#00B5B5";
   stop.style.display = "none";
   messagesWindow.style.display = "none";
@@ -68,10 +71,13 @@ const init = () => {
   questionIndex = 0;
   chat.style.display = "none";
   end.style.display = "none";
+  chillBot.style.display = "block";
   localStorage.clear();
 };
 
 const startDisplay = () => {
+  startContainer.style.display = "none";
+  chillBot.style.display = "none";
   main.style.backgroundColor = "#E0E0E0";
   chat.style.display = "block";
   start.style.display = "none";

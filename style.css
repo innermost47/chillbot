@@ -13,6 +13,15 @@ input[type="text"]:focus {
   box-shadow: none !important;
 }
 
+.btn-primary {
+  background-color: #99b8fe !important;
+  border-color: #99b8fe !important;
+}
+
+.btn-outline-danger:hover {
+  background-color: none !important;
+}
+
 .page {
   flex-grow: 1;
 }
@@ -142,6 +151,46 @@ footer {
   margin-bottom: 20px;
 }
 
+#startContainer {
+  height: 60px;
+  align-self: flex-end;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#start {
+  background-color: #006b6b;
+  border: 1px solid white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  animation: 2s ease-in-out infinite animationStart;
+}
+
+#stop {
+  background-color: #ff6161;
+  font-size: 13px;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+@keyframes animationStart {
+  from {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -10px;
+  }
+  to {
+    margin-top: 0;
+  }
+}
+
 #start:hover {
   cursor: pointer;
 }
@@ -160,7 +209,6 @@ footer {
   #messagesWindow {
     padding: 40px 40px 0 40px;
   }
-
   .messageInput {
     padding: 0px 40px 0 40px;
   }

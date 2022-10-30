@@ -24,7 +24,7 @@ viewBox="0 0 16 16"
 
 askQuestion = (antagoniste, questionIndex) => {
   const questions = [
-    "Tout d'abord, quel est le prénom de la personne avec laquelle la situation contrariante dont tu as envie de me parler est arrivée ?",
+    "Tout d'abord, quel est le prénom de la personne avec laquelle la situation contrariante est arrivée ?",
     "Alors dis moi, quelle est la situation qui t'a mis en colère avec " +
       antagoniste +
       " ? Décris la moi de la manière la plus objective possible: ",

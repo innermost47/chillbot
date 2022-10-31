@@ -116,6 +116,8 @@ const dialog = () => {
     e.preventDefault();
     if (input.value == "") {
       return;
+    } else if (input.value === "stop") {
+      init();
     }
     let myAnswer = answers.appendChild(document.createElement("p"));
     myAnswer.classList.add("myAnswer");
@@ -161,7 +163,7 @@ const dialog = () => {
             end.style.display = "block";
           }, 1500);
         }
-      }, 1500);
+      }, askQuestion(localStorage.getItem("antagoniste"), questionIndex).length * 20);
     } else {
       init();
     }

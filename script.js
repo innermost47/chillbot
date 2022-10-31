@@ -12,6 +12,7 @@ const chat = document.getElementById("chat");
 const end = document.getElementById("end");
 const chillBot = document.getElementById("chillBot");
 const startContainer = document.getElementById("startContainer");
+const footer = document.getElementById("footer");
 const sendIcon = `<svg
 xmlns="http://www.w3.org/2000/svg"
 width="16"
@@ -24,6 +25,13 @@ viewBox="0 0 16 16"
   d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"
 ></path>
 </svg>`;
+const awaiter = `<div class="ticontainer">
+<div class="tiblock">
+  <div class="tidot"></div>
+  <div class="tidot"></div>
+  <div class="tidot"></div>
+</div>
+</div>`;
 
 askQuestion = (antagoniste, questionIndex) => {
   const questions = [
@@ -58,6 +66,7 @@ askQuestion = (antagoniste, questionIndex) => {
 };
 
 const init = () => {
+  footer.style.display = "block";
   startContainer.style.display = "flex";
   main.style.backgroundColor = "#00B5B5";
   stop.style.display = "none";
@@ -76,13 +85,14 @@ const init = () => {
 };
 
 const startDisplay = () => {
+  footer.style.display = "none";
   startContainer.style.display = "none";
   chillBot.style.display = "none";
   main.style.backgroundColor = "#E0E0E0";
   chat.style.display = "block";
   start.style.display = "none";
   messagesWindow.style.display = "block";
-  stop.style.display = "block";
+  stop.style.display = "none";
   submit.style.display = "block";
   input.style.display = "block";
   answers.style.display = "flex";
@@ -120,19 +130,23 @@ const dialog = () => {
       askQuestion(localStorage.getItem("antagoniste"), questionIndex) !=
       undefined
     ) {
+      let robotLine = answers.appendChild(document.createElement("div"));
+      robotLine.classList.add("robotLine");
+      let imageBackground = robotLine.appendChild(
+        document.createElement("div")
+      );
+      imageBackground.classList.add("imageBackground");
+      let robotImage = imageBackground.appendChild(
+        document.createElement("img")
+      );
+      robotImage.src = "assets/logo.svg";
+      robotImage.classList.add("icon");
+      let robotAnswer = robotLine.appendChild(document.createElement("div"));
+      robotAnswer.innerHTML = awaiter;
+      robotAnswer.scrollIntoView({ behavior: "smooth" });
       setTimeout(() => {
-        let robotLine = answers.appendChild(document.createElement("div"));
-        robotLine.classList.add("robotLine");
-        let imageBackground = robotLine.appendChild(
-          document.createElement("div")
-        );
-        imageBackground.classList.add("imageBackground");
-        let robotImage = imageBackground.appendChild(
-          document.createElement("img")
-        );
-        robotImage.src = "assets/logo.svg";
-        robotImage.classList.add("icon");
-        let robotAnswer = robotLine.appendChild(document.createElement("p"));
+        robotAnswer.innerHTML = "";
+        robotAnswer = robotLine.appendChild(document.createElement("p"));
         robotAnswer.classList.add("robotAnswer");
         robotAnswer.innerHTML = askQuestion(
           localStorage.getItem("antagoniste"),
@@ -145,7 +159,7 @@ const dialog = () => {
           input.style.display = "none";
           setTimeout(() => {
             end.style.display = "block";
-          }, 1000);
+          }, 1500);
         }
       }, 1500);
     } else {

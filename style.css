@@ -45,8 +45,8 @@ footer {
 }
 
 #chat {
-  height: 100vh;
   width: 100%;
+  border-radius: 10px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -82,7 +82,7 @@ footer {
 }
 
 #messagesWindow {
-  height: 85vh;
+  height: 80vh;
   overflow-y: scroll;
   margin: auto;
   padding: 40px 20px 0 20px;
@@ -90,6 +90,14 @@ footer {
 
 .messageInput {
   padding: 0px 20px 0 20px;
+}
+
+#formBlock {
+  border-top: 1px solid #dcdcdc;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #f5f5f5;
+  border-radius: 0 0 10px 10px;
 }
 
 #messagesWindow::-webkit-scrollbar {

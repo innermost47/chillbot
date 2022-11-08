@@ -63,7 +63,7 @@ askQuestion = (antagoniste, questionIndex, mode) => {
       antagoniste +
       " dans cette situation ?",
     "J'imagine oui... Comment est ce que tu te sens ici et maintenant ?",
-    "Je comprends... Je te félicite pour ton travail sur ta colère, ce n'est pas toujours aisé de se remettre en question lorsque nous sommes en colère, alors je te félicite pour cet effort. Bravo ! Et à bientôt !",
+    "Je comprends... Je te félicite pour ton travail sur ta colère, ce n'est pas toujours aisé de se remettre en question lorsque nous sommes en colère, alors je te félicite pour cet effort. Bravo ! Que souhaites tu faire maintenant ?",
   ];
   const questionsRestructuration = [
     "Tout d'abord, peux tu me décrire de manière subjective la situation qui t'a contrarié ?",
@@ -74,7 +74,20 @@ askQuestion = (antagoniste, questionIndex, mode) => {
     "Merci... Maintenant, si tu devais changer de perspective, de point de vue sur la situation, quelles sont les autres hypothèses possibles d'après toi ?",
     "D'accord... Je te félicite pour ce travail, cela demande de l'effort de voir les choses sous un autre angle lorsque nous sommes sous le coup de l'émotion, alors bravo... Concernant ces hypothèses alternatives, sur une échelle de 1 à 10, quel degré de croyance accordes tu à ces autres points de vue ? 1 étant très faible, 10 tu y accordes une croyance absolue.",
     "Merci à toi... Comment est ce que tu te sens ici et maintenant ?",
-    "J'imagine oui..  . Je suis ravi et touché que tu fasses ce travail sur tes pensées. Encore une fois je te félicite pour cet effort, bravo ! Et à bientôt !",
+    "J'imagine oui..  . Je suis ravi et touché que tu fasses ce travail sur tes pensées. Encore une fois je te félicite pour cet effort, bravo ! Que souhaites tu faire maintenant ?",
+  ];
+  const questionsRelax = [
+    "Pour cet exercice, je te propose de te relaxer en te focalisant sur tes sens. Je te laisse me signaler lorsque tu es prêt. Tu peux par exemple m'écrire 'OK'...",
+    "Super... Alors, pour commencer je t'invite à regarder autour de toi et de noter mentalement 5 choses que tu peux voir. Une fois que c'est fait, je t'invite à les noter ici.",
+    "Génial... Maintenant je t'invite à noter mentalement 4 choses que tu peux entendre. Une fois que c'est ok, je t'invite à les noter ici.",
+    "Excellent... Maintenant je t'invite à focaliser ton attention sur 3 choses que tu peux sentir par le toucher. Une fois que c'est ok pour toi, je t'invite à les noter ici.",
+    "Super... Maintenant je t'invite à noter mentalement 2 choses que tu peux sentir avec ton odorat. Une fois que c'est fait, je t'invite à les noter ici.",
+    "Chouette... Maintenant, un dernier sens, je t'invite à identifier 1 chose que tu peux goûter, ce peut être tout simplement le goût dans ta bouche par exemple. Une fois que c'est bon pour toi, je t'invite à le noter ici.",
+    "Super ! Je suis ravi d'avoir partagé ce moment avec toi. Comment est ce que tu te sens ici et maintenant ?",
+    "J'imagine oui... Dis moi, que souhaites tu faire maintenant ?",
+  ];
+  const bye = [
+    "Ok ! Je suis content d'avoir passé un moment avec toi et je te félicite pour le temps que tu prends pour toi et les efforts que tu fais pour grandir encore et encore ! À bientôt :) ",
   ];
   switch (mode) {
     case "restructuration":
@@ -83,10 +96,17 @@ askQuestion = (antagoniste, questionIndex, mode) => {
     case "colere":
       questionsLength = questionsAnger.length;
       return questionsAnger[questionIndex];
+    case "relax":
+      questionsLength = questionsRelax.length;
+      return questionsRelax[questionIndex];
+    case "bye":
+      questionsLength = bye.length;
+      return bye[questionIndex];
   }
 };
 
 const init = () => {
+  input.value = "";
   footer.style.display = "block";
   page.style.height = "calc(100vh - " + footer.offsetHeight + "px)";
   startContainer.style.display = "flex";
@@ -106,6 +126,9 @@ const init = () => {
   localStorage.clear();
   begin = true;
   modeChoices.style.display = "none";
+  while (modeChoices.firstChild) {
+    modeChoices.removeChild(modeChoices.firstChild);
+  }
 };
 
 const createChoice = (id, html) => {
@@ -114,6 +137,7 @@ const createChoice = (id, html) => {
   element.setAttribute("id", id);
   element.innerHTML = html;
   let elementId = document.getElementById(id);
+  elementId.scrollIntoView({ behavior: "smooth" });
   elementId.addEventListener("click", () => {
     input.value = id;
     submit.click();
@@ -152,6 +176,7 @@ const startDisplay = () => {
     "Bonjour et bienvenue, je suis ChillBot et je suis là pour t'accompagner dans la gestion de tes émotions. Je suis très heureux d'être là à tes côtés. Pour commencer, je te laisse me dire, sur quoi souhaites tu travailler ? Si à tout moment tu souhaites mettre un terme à notre discussion, tape tout simplement 'stop' et envoie moi cette réponse.";
   createChoice("colere", "Travailler sur ma colère");
   createChoice("restructuration", "Faire de la restructuration cognitive");
+  createChoice("relax", "5-4-3-2-1");
 };
 
 const dialog = () => {
@@ -160,6 +185,10 @@ const dialog = () => {
   });
   submit.addEventListener("click", (e) => {
     e.preventDefault();
+    if (submit.style.display == "none" && input.style.display == "none") {
+      submit.style.display = "block";
+      input.style.display = "block";
+    }
     if (begin) {
       mode = input.value;
       begin = false;
@@ -168,8 +197,42 @@ const dialog = () => {
     if (input.value == "") {
       return;
     } else if (input.value === "stop") {
-      input.value = "";
       init();
+      return;
+    } else if (input.value === "bye") {
+      questionIndex = 0;
+      stop.style.display = "none";
+      submit.style.display = "none";
+      input.style.display = "none";
+      input.value = "";
+      let robotLine = answers.appendChild(document.createElement("div"));
+      robotLine.classList.add("robotLine");
+      let imageBackground = robotLine.appendChild(
+        document.createElement("div")
+      );
+      imageBackground.classList.add("imageBackground");
+      let robotImage = imageBackground.appendChild(
+        document.createElement("img")
+      );
+      robotImage.src = "assets/logo.svg";
+      robotImage.classList.add("icon");
+      let robotAnswer = robotLine.appendChild(document.createElement("div"));
+      robotAnswer.innerHTML = awaiter;
+      robotAnswer.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+        robotAnswer.innerHTML = "";
+        robotAnswer = robotLine.appendChild(document.createElement("p"));
+        robotAnswer.classList.add("robotAnswer");
+        robotAnswer.innerHTML = askQuestion(
+          localStorage.getItem("antagoniste"),
+          questionIndex,
+          "bye"
+        );
+        robotAnswer.scrollIntoView({ behavior: "smooth" });
+      });
+      setTimeout(() => {
+        end.style.display = "block";
+      }, 1500);
       return;
     }
     if (questionIndex != -1) {
@@ -212,9 +275,16 @@ const dialog = () => {
           stop.style.display = "none";
           submit.style.display = "none";
           input.style.display = "none";
-          setTimeout(() => {
-            end.style.display = "block";
-          }, 1500);
+          modeChoices.style.display = "flex";
+          createChoice("colere", "Travailler sur ma colère");
+          createChoice(
+            "restructuration",
+            "Faire de la restructuration cognitive"
+          );
+          createChoice("relax", "5-4-3-2-1");
+          createChoice("bye", "Je préfère arrêter pour maintenant");
+          questionIndex = 0;
+          begin = true;
         }
       }, askQuestion(localStorage.getItem("antagoniste"), questionIndex, mode).length * 20);
     } else {

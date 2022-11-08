@@ -74,7 +74,7 @@ askQuestion = (antagoniste, questionIndex, mode) => {
     "Super... Merci... Maintenant, si tu devais changer de perspective, de point de vue sur la situation, quelles sont les autres hypothèses possibles d'après toi ?",
     "D'accord... Je te félicite pour ce travail, cela demande de l'effort de voir les choses sous un autre angle lorsque nous sommes sous le coup de l'émotion, alors bravo... Concernant ces hypothèses alternatives, sur une échelle de 1 à 10, quel degré de croyance accordes tu à ces autres points de vue ? 1 étant très faible, 10 tu y accordes une croyance absolue.",
     "Merci à toi... Comment est ce que tu te sens ici et maintenant ?",
-    "J'imagine oui..  . Je suis ravi et touché que tu fasses ce travail sur tes pensées. Encore une fois je te félicite pour cet effort, c'est vraiment chouette. A bientôt !",
+    "J'imagine oui..  . Je suis ravi et touché que tu fasses ce travail sur tes pensées. Encore une fois je te félicite pour cet effort, bravo ! Et à bientôt !",
   ];
   switch (mode) {
     case "restructuration":
@@ -117,6 +117,7 @@ const createChoice = (id, html) => {
   elementId.addEventListener("click", () => {
     input.value = id;
     submit.click();
+    input.value = "";
     modeChoices.style.display = "none";
     while (modeChoices.firstChild) {
       modeChoices.removeChild(modeChoices.firstChild);

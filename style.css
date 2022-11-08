@@ -108,6 +108,27 @@ footer {
   flex-direction: column;
 }
 
+#modeChoices {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.modeChoice {
+  background-color: #ffaa00;
+  color: white;
+  border-radius: 15px;
+  padding: 15px;
+  max-width: 80%;
+  align-self: flex-end;
+  margin-right: 20px;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
 .myAnswer {
   background-color: #ffaa00;
   color: white;

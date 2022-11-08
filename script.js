@@ -1,5 +1,7 @@
 let questionIndex;
 let questionsLength;
+let mode;
+let begin = true;
 
 const main = document.getElementById("main");
 const start = document.getElementById("start");
@@ -14,6 +16,7 @@ const chillBot = document.getElementById("chillBot");
 const startContainer = document.getElementById("startContainer");
 const footer = document.getElementById("footer");
 const page = document.getElementById("page");
+const modeChoices = document.getElementById("modeChoices");
 const sendIcon = `<svg
 xmlns="http://www.w3.org/2000/svg"
 width="16"
@@ -34,8 +37,8 @@ const awaiter = `<div class="ticontainer">
 </div>
 </div>`;
 
-askQuestion = (antagoniste, questionIndex) => {
-  const questions = [
+askQuestion = (antagoniste, questionIndex, mode) => {
+  const questionsAnger = [
     "Tout d'abord, quel est le prénom de la personne avec laquelle la situation contrariante est arrivée ?",
     "Alors dis moi, quelle est la situation qui t'a mis en colère avec " +
       antagoniste +
@@ -62,8 +65,25 @@ askQuestion = (antagoniste, questionIndex) => {
     "J'imagine oui... Comment est ce que tu te sens ici et maintenant ?",
     "Je comprends... Je te félicite pour ton travail sur ta colère, ce n'est pas toujours aisé de se remettre en question lorsque nous sommes en colère, alors je te félicite pour cet effort. Bravo ! Et à bientôt !",
   ];
-  questionsLength = questions.length;
-  return questions[questionIndex];
+  const questionsRestructuration = [
+    "Tout d'abord, peux tu me décrire de manière subjective la situation qui t'a contrarié ?",
+    "Mmm je vois... J'imagine en effet que tu ais pû te sentir concerné... Dis moi, quelles sont les émotions que tu as ressenti ?",
+    "Ok... En effet... J'imagine... Sur une échelle de 1 à 10, quelle a été l'intensité de ces émotions ?",
+    "D'accord... Maintenant, quelles ont été les pensées qui ont précédées, accompagnées ou suivies l'émotion ?",
+    "Très bien... C'est en effet une hypothèse... Et dis moi, sur une échelle de 1 à 10, quel degré de croyance accordes tu à ces pensées ? 1 étant faible, 10 tu y accordes une croyance absolue.",
+    "Super... Merci... Maintenant, si tu devais changer de perspective, de point de vue sur la situation, quelles sont les autres hypothèses qui pourraient te permettre de voir la situation autrement, si tu en as envie ?",
+    "D'accord... Je te félicite pour ce travail, cela demande de l'effort de voir les choses sous un autre angle lorsque nous sommes sous le coup de l'émotion, alors bravo... Concernant ces hypothèses alternatives, sur une échelle de 1 à 10, quel degré de croyance accordes tu à ces autres points de vue ? 1 étant très faible, 10 tu y accordes une croyance absolue.",
+    "Merci à toi... Comment est ce que tu te sens ici et maintenant ?",
+    "J'imagine oui..  . Je suis ravi et touché que tu fasses ce travail sur tes pensées. Encore une fois je te félicite pour cet effort, c'est vraiment chouette. A bientôt !",
+  ];
+  switch (mode) {
+    case "restructuration":
+      questionsLength = questionsRestructuration.length;
+      return questionsRestructuration[questionIndex];
+    case "colere":
+      questionsLength = questionsAnger.length;
+      return questionsAnger[questionIndex];
+  }
 };
 
 const init = () => {
@@ -84,9 +104,12 @@ const init = () => {
   end.style.display = "none";
   chillBot.style.display = "block";
   localStorage.clear();
+  begin = true;
+  modeChoices.style.display = "none";
 };
 
 const startDisplay = () => {
+  modeChoices.style.display = "flex";
   page.style.height = "100vh";
   footer.style.display = "none";
   startContainer.style.display = "none";
@@ -108,7 +131,28 @@ const startDisplay = () => {
   robotImage.classList.add("icon");
   let robotAnswer = robotLine.appendChild(document.createElement("p"));
   robotAnswer.classList.add("robotAnswer");
-  robotAnswer.innerHTML = askQuestion("", questionIndex);
+  robotAnswer.innerHTML =
+    "Bonjour et bienvenue, je suis ChillBot et je suis là pour t'accompagner dans la gestion de tes émotions. Je suis très heureux d'être là à tes côtés. Pour commencer, je te laisse me dire, sur quoi souhaites tu travailler ? Si à tout moment tu souhaites mettre un terme à notre discussion, tape tout simplement 'stop' et envoie moi cette réponse.";
+  let anger = modeChoices.appendChild(document.createElement("p"));
+  anger.classList.add("modeChoice");
+  anger.setAttribute("id", "colere");
+  anger.innerHTML = "Travailler sur ma colère";
+  let angerId = document.getElementById("colere");
+  angerId.addEventListener("click", () => {
+    input.value = "colere";
+    submit.click();
+    modeChoices.style.display = "none";
+  });
+  let restructuration = modeChoices.appendChild(document.createElement("p"));
+  restructuration.classList.add("modeChoice");
+  restructuration.setAttribute("id", "restructuration");
+  restructuration.innerHTML = "Faire de la restructuration cognitive";
+  let restructurationId = document.getElementById("restructuration");
+  restructurationId.addEventListener("click", () => {
+    input.value = "restructuration";
+    submit.click();
+    modeChoices.style.display = "none";
+  });
 };
 
 const dialog = () => {
@@ -117,24 +161,29 @@ const dialog = () => {
   });
   submit.addEventListener("click", (e) => {
     e.preventDefault();
+    if (begin) {
+      mode = input.value;
+      begin = false;
+      questionIndex--;
+    }
     if (input.value == "") {
       return;
     } else if (input.value === "stop") {
       init();
+      return;
     }
-    let myAnswer = answers.appendChild(document.createElement("p"));
-    myAnswer.classList.add("myAnswer");
-    myAnswer.innerHTML = input.value;
-    if (questionIndex == 0) {
-      localStorage.setItem("antagoniste", input.value);
+    if (questionIndex != -1) {
+      let myAnswer = answers.appendChild(document.createElement("p"));
+      myAnswer.classList.add("myAnswer");
+      myAnswer.innerHTML = input.value;
+      myAnswer.scrollIntoView({ behavior: "smooth" });
     }
-    myAnswer.scrollIntoView({ behavior: "smooth" });
-    input.value = "";
     questionIndex++;
-    if (
-      askQuestion(localStorage.getItem("antagoniste"), questionIndex) !=
-      undefined
-    ) {
+    if (askQuestion("", questionIndex, mode) != undefined) {
+      if (questionIndex == 1 && mode == "colere") {
+        localStorage.setItem("antagoniste", input.value);
+      }
+      input.value = "";
       let robotLine = answers.appendChild(document.createElement("div"));
       robotLine.classList.add("robotLine");
       let imageBackground = robotLine.appendChild(
@@ -155,7 +204,8 @@ const dialog = () => {
         robotAnswer.classList.add("robotAnswer");
         robotAnswer.innerHTML = askQuestion(
           localStorage.getItem("antagoniste"),
-          questionIndex
+          questionIndex,
+          mode
         );
         robotAnswer.scrollIntoView({ behavior: "smooth" });
         if (questionIndex === questionsLength - 1) {
@@ -166,7 +216,7 @@ const dialog = () => {
             end.style.display = "block";
           }, 1500);
         }
-      }, askQuestion(localStorage.getItem("antagoniste"), questionIndex).length * 20);
+      }, askQuestion(localStorage.getItem("antagoniste"), questionIndex, mode).length * 20);
     } else {
       init();
     }

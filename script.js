@@ -108,6 +108,22 @@ const init = () => {
   modeChoices.style.display = "none";
 };
 
+const createChoice = (id, html) => {
+  let element = modeChoices.appendChild(document.createElement("p"));
+  element.classList.add("modeChoice");
+  element.setAttribute("id", id);
+  element.innerHTML = html;
+  let elementId = document.getElementById(id);
+  elementId.addEventListener("click", () => {
+    input.value = id;
+    submit.click();
+    modeChoices.style.display = "none";
+    while (modeChoices.firstChild) {
+      modeChoices.removeChild(modeChoices.firstChild);
+    }
+  });
+};
+
 const startDisplay = () => {
   modeChoices.style.display = "flex";
   page.style.height = "100vh";
@@ -133,26 +149,8 @@ const startDisplay = () => {
   robotAnswer.classList.add("robotAnswer");
   robotAnswer.innerHTML =
     "Bonjour et bienvenue, je suis ChillBot et je suis là pour t'accompagner dans la gestion de tes émotions. Je suis très heureux d'être là à tes côtés. Pour commencer, je te laisse me dire, sur quoi souhaites tu travailler ? Si à tout moment tu souhaites mettre un terme à notre discussion, tape tout simplement 'stop' et envoie moi cette réponse.";
-  let anger = modeChoices.appendChild(document.createElement("p"));
-  anger.classList.add("modeChoice");
-  anger.setAttribute("id", "colere");
-  anger.innerHTML = "Travailler sur ma colère";
-  let angerId = document.getElementById("colere");
-  angerId.addEventListener("click", () => {
-    input.value = "colere";
-    submit.click();
-    modeChoices.style.display = "none";
-  });
-  let restructuration = modeChoices.appendChild(document.createElement("p"));
-  restructuration.classList.add("modeChoice");
-  restructuration.setAttribute("id", "restructuration");
-  restructuration.innerHTML = "Faire de la restructuration cognitive";
-  let restructurationId = document.getElementById("restructuration");
-  restructurationId.addEventListener("click", () => {
-    input.value = "restructuration";
-    submit.click();
-    modeChoices.style.display = "none";
-  });
+  createChoice("colere", "Travailler sur ma colère");
+  createChoice("restructuration", "Faire de la restructuration cognitive");
 };
 
 const dialog = () => {
@@ -169,6 +167,7 @@ const dialog = () => {
     if (input.value == "") {
       return;
     } else if (input.value === "stop") {
+      input.value = "";
       init();
       return;
     }

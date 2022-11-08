@@ -106,6 +106,7 @@ askQuestion = (antagoniste, questionIndex, mode) => {
 };
 
 const init = () => {
+  submit.removeAttribute("disabled");
   input.value = "";
   footer.style.display = "block";
   page.style.height = "calc(100vh - " + footer.offsetHeight + "px)";
@@ -160,8 +161,8 @@ const startDisplay = () => {
   start.style.display = "none";
   messagesWindow.style.display = "block";
   stop.style.display = "none";
-  submit.style.display = "block";
-  input.style.display = "block";
+  submit.style.display = "none";
+  input.style.display = "none";
   answers.style.display = "flex";
   let robotLine = answers.appendChild(document.createElement("div"));
   robotLine.classList.add("robotLine");
@@ -235,6 +236,7 @@ const dialog = () => {
       }, 1500);
       return;
     }
+    submit.setAttribute("disabled", "");
     if (questionIndex != -1) {
       let myAnswer = answers.appendChild(document.createElement("p"));
       myAnswer.classList.add("myAnswer");
@@ -271,6 +273,7 @@ const dialog = () => {
           mode
         );
         robotAnswer.scrollIntoView({ behavior: "smooth" });
+        submit.removeAttribute("disabled");
         if (questionIndex === questionsLength - 1) {
           stop.style.display = "none";
           submit.style.display = "none";

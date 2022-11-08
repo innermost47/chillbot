@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="ChillBot" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="Développé par Anthony Charretier, ChillBot est programme inspiré par des exercices de TCC aidant à gérer les épisodes de colère. ChillBot est très utile pour apaiser ses émotions."
+    />
+    <meta
+      property="og:image"
+      content="https://chillbot.anthony-charretier.fr/assets/logo.png"
+    />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="assets/logo.svg" />
     <link
@@ -22,7 +32,8 @@
   </head>
   <body id="main">
     <div
-      class="container d-flex flex-column justify-content-around align-items-center page"
+      class="container d-flex flex-column justify-content-around align-items-center"
+      id="page"
     >
       <div id="chat">
         <div id="messagesWindow">
@@ -63,7 +74,11 @@
       </div>
     </div>
     <footer id="footer">
-      <p class="pt-2 mb-1">ChillBot - 2022</p>
+      <p class="pt-2 mb-0">ChillBot - 2022</p>
+      <p class="caution mb-1">
+        Cette application utilise le localstorage de votre navigateur, aucune
+        données n'est collectée par nos serveurs.
+      </p>
     </footer>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

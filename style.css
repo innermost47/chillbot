@@ -194,6 +194,12 @@ footer {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+.caution {
+  font-size: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 @keyframes animationStart {
   from {
     margin-top: 0;

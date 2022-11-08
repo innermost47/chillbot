@@ -13,6 +13,7 @@ const end = document.getElementById("end");
 const chillBot = document.getElementById("chillBot");
 const startContainer = document.getElementById("startContainer");
 const footer = document.getElementById("footer");
+const page = document.getElementById("page");
 const sendIcon = `<svg
 xmlns="http://www.w3.org/2000/svg"
 width="16"
@@ -67,6 +68,7 @@ askQuestion = (antagoniste, questionIndex) => {
 
 const init = () => {
   footer.style.display = "block";
+  page.style.height = "calc(100vh - " + footer.offsetHeight + "px)";
   startContainer.style.display = "flex";
   main.style.backgroundColor = "#00B5B5";
   stop.style.display = "none";
@@ -85,6 +87,7 @@ const init = () => {
 };
 
 const startDisplay = () => {
+  page.style.height = "100vh";
   footer.style.display = "none";
   startContainer.style.display = "none";
   chillBot.style.display = "none";
